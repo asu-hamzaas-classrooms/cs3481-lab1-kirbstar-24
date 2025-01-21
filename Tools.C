@@ -73,8 +73,12 @@ return storage;
 */
 uint64_t Tools::getByte(uint64_t source, int32_t byteNum)
 {
-source >> byteNum;
-return source & 0xff;
+	if (byteNum >= 8 || byteNum < 0)
+	{
+		return 0;
+	}
+source >>= byteNum;
+return source & 0x00000000000000ff;
 }
 
 /**
@@ -104,7 +108,12 @@ return source & 0xff;
  */
 uint64_t Tools::getBits(uint64_t source, int32_t low, int32_t high)
 {
-  return 0;
+ 	if (low > 63 || low < 0 || high > 63 || high < 0)
+	{
+		return 0;
+	}	
+
+	return 0;
 }
 
 
