@@ -43,7 +43,13 @@
 */
 uint64_t Tools::buildLong(uint8_t bytes[LONGSIZE])
 {
-  return 0;
+int64_t storage = 0;
+	for(int i = 0; i < LONGSIZE - 1; i++)
+ 	{
+		storage += bytes[i];
+		storage <<= 8;	
+ 	} 
+return storage;
 }
 
 /** 
@@ -67,7 +73,8 @@ uint64_t Tools::buildLong(uint8_t bytes[LONGSIZE])
 */
 uint64_t Tools::getByte(uint64_t source, int32_t byteNum)
 {
-  return 0;
+source >> byteNum;
+return source & 0xff;
 }
 
 /**
