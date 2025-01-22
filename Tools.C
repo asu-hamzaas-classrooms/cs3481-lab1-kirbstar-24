@@ -43,11 +43,12 @@
 */
 uint64_t Tools::buildLong(uint8_t bytes[LONGSIZE])
 {
-int64_t storage = 0;
-	for(int i = 0; i < LONGSIZE - 1; i++)
+	uint64_t storage = 0;
+	for(int i = 0; i < LONGSIZE; i++) // loop through byte array
  	{
-		storage += bytes[i];
-		storage <<= 8;	
+		storage <<= 8; //shift 8 bits
+		storage |= bytes[LONGSIZE - 1 - i]; //start from least sig byte and
+	       					    //add information with or
  	} 
 return storage;
 }
@@ -77,8 +78,8 @@ uint64_t Tools::getByte(uint64_t source, int32_t byteNum)
 	{
 		return 0;
 	}
-source >>= byteNum;
-return source & 0x00000000000000ff;
+source >>= (byteNum * 8); //shift over to x00 position
+return source & 0xff; //mask 
 }
 
 /**
@@ -108,12 +109,13 @@ return source & 0x00000000000000ff;
  */
 uint64_t Tools::getBits(uint64_t source, int32_t low, int32_t high)
 {
- 	if (low > 63 || low < 0 || high > 63 || high < 0)
+ 	if (low > 63 || low < 0 || high > 63 || high < 0 || low > high)
 	{
 		return 0;
 	}	
 
-	return 0;
+	uint64_t mask = ~0ull >> (63 - (high - low)); //create mask 
+       return (source >> low) & mask;	
 }
 
 
