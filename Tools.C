@@ -211,7 +211,13 @@ uint64_t Tools::clearBits(uint64_t source, int32_t low, int32_t high)
 uint64_t Tools::copyBits(uint64_t source, uint64_t dest, 
                          int32_t srclow, int32_t dstlow, int32_t length)
 {
-   return 0; 
+   if (srclow < 0 || dst low < 0)
+   {
+    return destination;
+   } 
+
+   int64_t mask = getBits(source, srclow, srclow + length) << dstlow;
+   return mask;
 }
 
 
