@@ -179,9 +179,8 @@ uint64_t Tools::clearBits(uint64_t source, int32_t low, int32_t high)
 		return source;
 	}	
 
-  int64_t mask = getBits(~0ull, low, high) << low;
-  ~mask;
-  return source & source;
+  int64_t mask = ~(getBits(~0ull, low, high) << low);
+  return source & mask;
 }
 
 
