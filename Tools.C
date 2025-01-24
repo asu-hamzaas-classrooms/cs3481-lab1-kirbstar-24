@@ -211,13 +211,16 @@ uint64_t Tools::clearBits(uint64_t source, int32_t low, int32_t high)
 uint64_t Tools::copyBits(uint64_t source, uint64_t dest, 
                          int32_t srclow, int32_t dstlow, int32_t length)
 {
-   if (srclow < 0 || dst low < 0)
+   if (srclow < 0 || dstlow < 0 || length <= 0 || srclow + length - 1 > 63 ||
+		   dstlow + length - 1 > 63)
    {
-    return destination;
+    return dest;
    } 
 
-   int64_t mask = getBits(source, srclow, srclow + length) << dstlow;
-   return mask;
+   int64_t srcbits = getBits(source, srclow, srclow + length - 1); //get bits from src to be copied
+   int64_t mask = (~0ull >> (64 - length)) << dstlow; // mask to clear dest range
+
+   return (dest & ~mask) | (srcbits << dstlow); // not mask and with dest ord with copy shifted to range
 }
 
 
