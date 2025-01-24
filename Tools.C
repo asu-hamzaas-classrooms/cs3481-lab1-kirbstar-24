@@ -245,7 +245,11 @@ uint64_t Tools::copyBits(uint64_t source, uint64_t dest,
  */
 uint64_t Tools::setByte(uint64_t source, int32_t byteNum)
 {
-  return 0;
+  int64_t mask = (0xffull << byteNum * 8);
+  int64_t range = ((byteNum >= 0) && (byteNum <= 7)) * mask;
+
+  return source | range;
+
 }
 
 
@@ -267,7 +271,7 @@ uint64_t Tools::setByte(uint64_t source, int32_t byteNum)
  */
 uint64_t Tools::sign(uint64_t source)
 {
-  return 0;
+  return getBits(source, 63, 63);
 }
 
 /**
